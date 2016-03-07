@@ -11,5 +11,7 @@ RUN chmod -R 777 /opt/phantomjs-2.1.1-linux-x86_64/
 
 EXPOSE 4444
 
-ENTRYPOINT [ "/opt/phantomjs-2.1.1-linux-x86_64/bin/run.sh" ]
+WORKDIR /opt/phantomjs-2.1.1-linux-x86_64/bin/
+
+ENTRYPOINT [ "./run.sh" ]
 
