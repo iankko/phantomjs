@@ -1,17 +1,19 @@
-FROM fedora
+# Update phantomjs to 2.5.0 beta to support ES6 (React) natively
+# https://stackoverflow.com/a/42179662
 
-RUN dnf -y --setopt=tsflags=nodocs install tar bzip2 fontconfig libstdc++ && dnf -y clean all
+FROM ubuntu:xenial
 
-RUN curl -L https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2 | \
-    tar -xjf - -C /opt
+RUN apt-get -y update && apt-get -y install curl libfontconfig1 libjpeg-turbo8 libhyphen0 libicu55 libxml2 libxslt1.1 && apt-get -y clean
 
-ADD run.sh /opt/phantomjs-2.1.1-linux-x86_64/bin/
+RUN curl -L https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.5.0-beta-linux-ubuntu-xenial-x86_64.tar.gz | \
+    tar -xvzf - -C /opt
 
-RUN chmod -R 777 /opt/phantomjs-2.1.1-linux-x86_64/
+ADD run.sh /opt/phantomjs-2.5.0-beta-ubuntu-xenial/bin/
+
+RUN chmod -R 777 /opt/phantomjs-2.5.0-beta-ubuntu-xenial/bin/
 
 EXPOSE 4444
 
-WORKDIR /opt/phantomjs-2.1.1-linux-x86_64/bin/
+WORKDIR /opt/phantomjs-2.5.0-beta-ubuntu-xenial/bin/
 
 ENTRYPOINT [ "./run.sh" ]
-

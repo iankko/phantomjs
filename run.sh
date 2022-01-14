@@ -8,4 +8,3 @@ then
 fi
 
 ./phantomjs ${ARGS}
-
